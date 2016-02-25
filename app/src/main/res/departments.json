@@ -1,0 +1,24 @@
+{
+  "departments":[
+    {
+      "name":"Dipartimento di Informatica",
+      "acronym":"CCDINF",
+      "url":"http://www.ccdinfmi.unimi.it/it/avvisi.rss"
+    },
+    {
+      "name":"Scienze Agrarie e Ambientali",
+      "acronym":"DISAA",
+      "url":"http://www.disaa.unimi.it/ecm/home/content/rss/UNIMIDIRE-1_p52801"
+    },
+    {
+      "name":"Beni Culturali",
+      "acronym":"BAC",
+      "url":"http://www.bac.unimi.it/ecm/home/content/rss/UNIMIDIRE-1_p174401"
+    },
+    {
+      "name":"Bioscienze",
+      "acronym":"DBS",
+      "url":"http://www.dbs.unimi.it/ecm/home/content/rss/UNIMIDIRE-1_p59401"
+    }
+  ]
+}

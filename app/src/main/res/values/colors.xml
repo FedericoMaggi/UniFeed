@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="palette_white" type="color">#FFFFFF</item>
+    <item name="palette_primary" type="color">#1C3F72</item>
+    <item name="palette_primary_dark" type="color">#03070c</item>
+    <item name="palette_primary_light" type="color">#4F68A2</item>
+    <item name="palette_black" type="color">#000000</item>
+
+    <color name="palette_black_overlay">#66000000</color>
+    <color name="palette_white_transparent">#96FFFFFF</color>
+</resources>
