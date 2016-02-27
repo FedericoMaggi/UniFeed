@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import me.federicomaggi.unifeed.R;
 import me.federicomaggi.unifeed.model.DepartmentItem;
@@ -31,14 +30,14 @@ public class DepartmentAdapter extends ArrayAdapter<DepartmentItem> {
         if (theView == null){
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(getContext());
-            theView = layoutInflater.inflate(R.layout.department_list_item, null);
+            theView = layoutInflater.inflate(R.layout.item_department_list, null);
         }
 
         DepartmentItem depItem = getItem(position);
 
         if (depItem != null) {
             TextView departmentNameTextView = (TextView) theView.findViewById(R.id.department_name);
-            departmentNameTextView.setText(depItem.getName() + "["+depItem.getAcronym()+"]");
+            departmentNameTextView.setText(depItem.getName() + " ["+depItem.getAcronym()+"]");
         }
 
         return theView;

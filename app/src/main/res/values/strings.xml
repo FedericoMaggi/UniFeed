@@ -1,15 +1,11 @@
 <resources>
     <string name="app_name">UniFeed</string>
 
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
+    
     <string name="loading">Loading</string>
-    <string name="defaultloadingmessage">Download in corso..</string>
-
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="default_loading_message">Download in corso..</string>
+    <string name="loading_feed">Scarico i Feed..</string>
 
     <!-- DepUrl -->
     <string name="department_list_url">http://federicomaggi.me/departments.json</string>
@@ -21,5 +17,12 @@
 
     <!-- Errors -->
     <string name="error">Error</string>
-    <string name="nointernet">Connessione dati assente</string>
+    <string name="no_internet">Connessione dati assente</string>
+    <string name="error_downloading_feed">Impossibile scaricare il feed</string>
+    <string name="title_activity_feed">FeedActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="feed_date_label">Il:</string>
+    <string name="feed_link_label">vedi:</string>
 </resources>

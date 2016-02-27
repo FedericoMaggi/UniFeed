@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/feed_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/list_item_margin_start"
+        android:layout_marginTop="@dimen/list_item_margin_top"
+        android:textSize="@dimen/feed_item_title_text"
+        android:textColor="@color/palette_primary" />
+
+    <TextView
+        android:id="@+id/feed_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/list_item_margin_start"
+        android:layout_marginTop="@dimen/list_item_margin_top"
+        android:textSize="@dimen/feed_item_date_text"
+        android:layout_below="@id/feed_title"/>
+
+</RelativeLayout>

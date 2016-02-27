@@ -1,7 +1,22 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <!-- General margins -->
+
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="list_item_margin_top">10dp</dimen>
+    <dimen name="list_item_margin_start">10dp</dimen>
+
+
+    <!-- Departments List Layout -->
     <dimen name="department_list_item">15sp</dimen>
+
+    <!-- Feed Item List Layout -->
+    <dimen name="feed_item_wrapper">40dp</dimen>
+    <dimen name="feed_item_title">30dp</dimen>
+    <dimen name="feed_item_title_text">15sp</dimen>
+    <dimen name="feed_item_date">10dp</dimen>
+    <dimen name="feed_item_date_text">10sp</dimen>
+
 </resources>

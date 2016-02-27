@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import org.apache.http.HeaderElement;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import me.federicomaggi.unifeed.R;
 import me.federicomaggi.unifeed.controller.interfaces.RequestCallback;
 import me.federicomaggi.unifeed.model.DepartmentItem;
+import me.federicomaggi.unifeed.model.FeedItem;
 
 /**
  * Created by federicomaggi on 25/02/16.
@@ -28,6 +28,9 @@ public class Helpers {
     public static final String DEPARMENT_FILE = "departments_file";
     public static final String DEPARMENT_KEY = "departments_key";
 
+    // Downloaded JSON Keys
+    private static final String DEPARMENT_JSON_KEY = "departments";
+
     // Helper Singleton instance
     private static Helpers instance;
 
@@ -35,13 +38,11 @@ public class Helpers {
     private static Context appContext;
     private static JSONObject alerts;
     private ArrayList<DepartmentItem> mDeparmentList;
-
+    private ArrayList<FeedItem> mFeedItemlist;
 
     // Communication and services handlers
     public CommunicationHandler communicationHandler;
     private ProgressDialog mProgressDialog;
-
-
 
     public static Helpers shared(){
         if (instance == null)
@@ -56,7 +57,9 @@ public class Helpers {
 
         try{
             alerts = new JSONObject()
-                    .put("0", new JSONObject().put("title",getString(R.string.error)).put("message",getString(R.string.nointernet)).put("cancel",getString(R.string.ok)));
+                .put("0", new JSONObject().put("title", getString(R.string.error)).put("message",getString(R.string.no_internet)).put("cancel",getString(R.string.ok)))
+                .put("1", new JSONObject().put("title",getString(R.string.error)).put("message",getString(R.string.error_downloading_feed)).put("cancel",getString(R.string.ok)));
+
 
         }catch (JSONException e){
             e.printStackTrace();
@@ -83,7 +86,7 @@ public class Helpers {
         mProgressDialog.setTitle(getString(R.string.loading));
 
         if (theMessage == null)
-            theMessage = getString(R.string.defaultloadingmessage);
+            theMessage = getString(R.string.default_loading_message);
 
         mProgressDialog.setMessage(theMessage);
         mProgressDialog.show();
@@ -119,28 +122,34 @@ public class Helpers {
 
     public void retrieveDepartmentList(final RequestCallback finalCallback){
 
-        Log.i(getString(R.string.log_info), "Started departements retrieval");
+        Log.i(getString(R.string.log_info), "Started departments retrieval");
+        Log.d(getString(R.string.log_debug), "Department List:" + mDeparmentList.toString());
 
         // Already set -> return it.
-        if (mDeparmentList != null){
-            Log.d(getString(R.string.log_debug), "Department List:" + mDeparmentList.toString());
+        if (mDeparmentList != null && mDeparmentList.size() != 0){
             finalCallback.callback(true);
+            return;
         }
 
-        // Not set -> get it from SharedPreferecens
-    /*
+        // Not set -> get it from SharedPreferences
         JSONObject savedObj = getSavedObj(DEPARMENT_KEY, DEPARMENT_FILE);
+        Log.i(getString(R.string.log_info), "Started departments read in SharedPreferences");
+        Log.d(getString(R.string.log_debug), "JSONObject: "+ (savedObj!=null?savedObj.toString():"null"));
+
         if (savedObj != null){
             // decode obj in list
+            mDeparmentList = parseDepartmentList(savedObj);
             Log.d(getString(R.string.log_debug), "Department List:" + mDeparmentList.toString());
+
             finalCallback.callback(true);
+            return;
         }
-    */
+
 
         Log.i(getString(R.string.log_info), "Started departements download");
 
         // Not in SharedPreferences -> Download it
-        communicationHandler.downloadDeparments(new RequestCallback() {
+        communicationHandler.downloadDepartments(new RequestCallback() {
 
             @Override
             public void callback(Boolean success) {
@@ -153,23 +162,7 @@ public class Helpers {
 
     public void setDepartmentListFromJSON(JSONObject departments){
         instance.saveObj(Helpers.DEPARMENT_KEY, departments, Helpers.DEPARMENT_FILE);
-
-        JSONArray depsArray = new JSONArray();
-        JSONObject temp = new JSONObject();
-
-        try {
-            depsArray = departments.getJSONArray("departments");
-
-            for(int i = 0; i < depsArray.length(); i++){
-                temp = depsArray.getJSONObject(i);
-
-                mDeparmentList.add(new DepartmentItem(temp.getString("name"),temp.getString("url"),temp.getString("acronym")));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        mDeparmentList = parseDepartmentList(departments);
     }
 
     public void saveObj(String key, JSONObject obj, String file) {
@@ -195,5 +188,39 @@ public class Helpers {
     public boolean keyExist(String key, String file) {
         SharedPreferences sp = appContext.getSharedPreferences(file, Context.MODE_PRIVATE);
         return sp.contains(key);
+    }
+
+    private ArrayList<DepartmentItem> parseDepartmentList(JSONObject departmentJSON) {
+
+        ArrayList<DepartmentItem> theDepartmentList = new ArrayList<>();
+        JSONArray departmentsJSONArray;
+        JSONObject currentDepartment;
+
+        try {
+            departmentsJSONArray = departmentJSON.getJSONArray(DEPARMENT_JSON_KEY);
+
+            for (int i = 0; i < departmentsJSONArray.length(); i++) {
+                currentDepartment = departmentsJSONArray.getJSONObject(i);
+
+                theDepartmentList.add(new DepartmentItem(
+                        currentDepartment.getString("name"),
+                        currentDepartment.getString("url"),
+                        currentDepartment.getString("acronym"))
+                );
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return theDepartmentList;
+    }
+
+    public void setFeedList(ArrayList<FeedItem> feedItemArrayList) {
+        this.mFeedItemlist = feedItemArrayList;
+    }
+
+    public ArrayList<FeedItem> getFeedItemList() {
+        return this.mFeedItemlist;
     }
 }
