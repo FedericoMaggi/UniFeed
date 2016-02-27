@@ -23,9 +23,8 @@ public class MainActivity extends AppCompatActivity implements
         Helpers.setAppContext(this);
 
         getSupportFragmentManager().beginTransaction()
-            .replace(R.id.main_fragment_container, DepartmentListFragment.newInstance())
-            //.addToBackStack(DepartmentListFragment.class.getName())
-            .commit();
+                .replace(R.id.main_fragment_container, DepartmentListFragment.newInstance())
+                .commit();
     }
 
     @Override

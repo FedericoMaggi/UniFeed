@@ -15,7 +15,7 @@ import me.federicomaggi.unifeed.ui.fragment.FeedListFragment;
 import me.federicomaggi.unifeed.ui.fragment.FeedViewerFragment;
 
 public class FeedActivity extends AppCompatActivity implements
-        FeedListFragment.OnFragmentInteractionListener {
+        FeedListFragment.OnFeedListFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -64,6 +64,7 @@ public class FeedRequest extends AsyncTask<Void,Void,ArrayList<FeedItem>> {
         } catch (SAXException | ParserConfigurationException | IOException e){
             e.printStackTrace();
         }
+
         return mRssParser.getFeedItemList();
     }
 

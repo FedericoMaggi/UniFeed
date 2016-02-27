@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import org.apache.http.message.HeaderValueParser;
+
+import java.util.ArrayList;
 
 import me.federicomaggi.unifeed.R;
 import me.federicomaggi.unifeed.controller.Helpers;
@@ -24,7 +27,7 @@ import me.federicomaggi.unifeed.ui.adapter.FeedAdapter;
  */
 public class FeedListFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
+    private OnFeedListFragmentInteractionListener mListener;
 
     private static final String DEPARTMENT_NAME_ARG = "dep_name_arg";
     private static final String DEPARTMENT_ACRONYM_ARG = "dep_acronym_arg";
@@ -36,6 +39,8 @@ public class FeedListFragment extends Fragment {
     private String mFeedUrl;
     private String mFeedName;
     private String mFeedAcronym;
+
+    private ArrayList<FeedItem> mFeedList;
 
     /**
      * Use this factory method to create a new instance of
@@ -78,29 +83,26 @@ public class FeedListFragment extends Fragment {
         mRootView = inflater.inflate(R.layout.fragment_feed_list, container, false);
         mListView = (ListView) mRootView.findViewById(R.id.feed_list);
 
-        Helpers.shared().communicationHandler.downloadFeed(mFeedUrl, new RequestCallback(){
+        mFeedList = Helpers.shared().getFeedItemList(mFeedAcronym);
+
+        if (mFeedList != null) {
+            fillListView();
+            return mRootView;
+        }
+
+        Helpers.shared().communicationHandler.downloadFeed(mFeedUrl, mFeedAcronym, new RequestCallback() {
 
             @Override
             public void callback(Boolean success) {
 
-                if (!success){
+                if (!success) {
                     Helpers.showAlert(1);
                     return;
                 }
 
                 Log.d(Helpers.getString(R.string.log_debug), "FEED DOWNLOADED");
-
-                FeedAdapter feedAdapter = new FeedAdapter(getActivity(), R.layout.item_feed_list, Helpers.shared().getFeedItemList());
-                mListView.setAdapter(feedAdapter);
-
-                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        FeedItem feedItem = (FeedItem) mListView.getItemAtPosition(position);
-                        mListener.onFeedFragmentInteraction(feedItem);
-                    }
-                });
+                mFeedList = Helpers.shared().getFeedItemList(mFeedAcronym);
+                fillListView();
             }
         });
 
@@ -111,12 +113,12 @@ public class FeedListFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        Log.i(Helpers.getString(R.string.log_info),"FeedListFragment Attached");
+        Log.i(Helpers.getString(R.string.log_info), "FeedListFragment Attached");
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnFeedListFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnFeedListFragmentInteractionListener");
         }
     }
 
@@ -126,17 +128,28 @@ public class FeedListFragment extends Fragment {
         mListener = null;
     }
 
+    private void fillListView(){
+
+        FeedAdapter feedAdapter = new FeedAdapter(getActivity(), R.layout.item_feed_list, mFeedList);
+        mListView.setAdapter(feedAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FeedItem feedItem = (FeedItem) mListView.getItemAtPosition(position);
+                mListener.onFeedFragmentInteraction(feedItem);
+            }
+        });
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnFeedListFragmentInteractionListener {
         void onFeedFragmentInteraction(FeedItem feedItem);
     }
 }

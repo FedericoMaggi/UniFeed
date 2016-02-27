@@ -41,7 +41,7 @@ public class ServiceRequest extends AsyncTask<Void,Void,JSONObject> {
     protected JSONObject doInBackground(Void... v) {
         JSONObject response;
         StringBuilder builder = new StringBuilder();
-        String aux = "";
+        String aux;
 
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(requestUri).openConnection();

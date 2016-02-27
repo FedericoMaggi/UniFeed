@@ -40,7 +40,6 @@ public class RSSParser extends DefaultHandler{
     @Override
     public void endDocument() throws SAXException {
         super.endDocument();
-
         Log.d(Helpers.getString(R.string.log_info), "Document parse finished");
     }
 

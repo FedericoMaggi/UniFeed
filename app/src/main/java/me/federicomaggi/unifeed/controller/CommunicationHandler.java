@@ -23,10 +23,12 @@ public class CommunicationHandler {
     public CommunicationHandler() {}
 
     public void downloadDepartments(final RequestCallback requestCallback) {
+
         Helpers.shared().setProgressDialog(null);
         new ServiceRequest(Helpers.getString(R.string.department_list_url), new ServiceCallback() {
             @Override
             public void callback(JSONObject response) {
+
                 Helpers.shared().removeProgressDialog();
 
                 if (response == null) {
@@ -44,9 +46,10 @@ public class CommunicationHandler {
     }
 
 
-    public void downloadFeed(String feedUrl, final RequestCallback requestCallback){
+    public void downloadFeed(String feedUrl, final String feedAcronym, final RequestCallback requestCallback){
 
         Helpers.shared().setProgressDialog(Helpers.getString(R.string.loading_feed));
+
         new FeedRequest(feedUrl, new FeedCallback() {
             @Override
             public void callback(ArrayList<FeedItem> feedItemArrayList) {
@@ -58,8 +61,9 @@ public class CommunicationHandler {
                     requestCallback.callback(false);
                 }
 
-                Helpers.shared().setFeedList(feedItemArrayList);
+                Helpers.shared().setFeedList(feedItemArrayList, feedAcronym);
                 requestCallback.callback(true);
+
             }
 
         }).execute();

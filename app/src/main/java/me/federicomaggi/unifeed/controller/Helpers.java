@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.federicomaggi.unifeed.R;
 import me.federicomaggi.unifeed.controller.interfaces.RequestCallback;
@@ -39,6 +41,7 @@ public class Helpers {
     private static JSONObject alerts;
     private ArrayList<DepartmentItem> mDeparmentList;
     private ArrayList<FeedItem> mFeedItemlist;
+    private HashMap<String,ArrayList<FeedItem>> mFeedMap;
 
     // Communication and services handlers
     public CommunicationHandler communicationHandler;
@@ -54,6 +57,7 @@ public class Helpers {
 
         communicationHandler = new CommunicationHandler();
         mDeparmentList = new ArrayList<>();
+        mFeedMap = new HashMap<>();
 
         try{
             alerts = new JSONObject()
@@ -80,6 +84,9 @@ public class Helpers {
     }
 
     public void setProgressDialog(String theMessage) {
+
+        Log.i(Helpers.getString(R.string.log_info), "Opening progress dialog");
+
         if( mProgressDialog == null )
             mProgressDialog = new ProgressDialog(getAppContext());
 
@@ -93,6 +100,9 @@ public class Helpers {
     }
 
     public void removeProgressDialog() {
+
+        Log.i(Helpers.getString(R.string.log_info), "Removing progress dialog");
+
         if( mProgressDialog == null )
             return;
 
@@ -103,10 +113,12 @@ public class Helpers {
     }
 
     public static AlertDialog showAlert(int id) {
+
         JSONObject alert = alerts.optJSONObject(id + "");
+
         if( alert == null ) {
             try {
-                alert = new JSONObject().put("title", "Impossibile collegarsi al server").put("message", "Ritenta più tardi").put("cancel", "Ok");
+                alert = new JSONObject().put("title", "Impossibile contattare al server").put("message", "Ritenta più tardi").put("cancel", "Ok");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -216,11 +228,11 @@ public class Helpers {
         return theDepartmentList;
     }
 
-    public void setFeedList(ArrayList<FeedItem> feedItemArrayList) {
-        this.mFeedItemlist = feedItemArrayList;
+    public void setFeedList(ArrayList<FeedItem> feedItemArrayList, String feedAcronym) {
+        this.mFeedMap.put(feedAcronym, feedItemArrayList);
     }
 
-    public ArrayList<FeedItem> getFeedItemList() {
-        return this.mFeedItemlist;
+    public ArrayList<FeedItem> getFeedItemList(String feedAcronym) {
+        return mFeedMap.get(feedAcronym);
     }
 }
