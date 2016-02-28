@@ -13,7 +13,6 @@ import org.json.JSONTokener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import me.federicomaggi.unifeed.R;
 import me.federicomaggi.unifeed.controller.interfaces.RequestCallback;

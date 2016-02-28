@@ -1,7 +1,6 @@
 package me.federicomaggi.unifeed.ui.fragment;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,17 +16,9 @@ import me.federicomaggi.unifeed.R;
 import me.federicomaggi.unifeed.controller.Helpers;
 import me.federicomaggi.unifeed.controller.interfaces.RequestCallback;
 import me.federicomaggi.unifeed.model.DepartmentItem;
-import me.federicomaggi.unifeed.ui.MainActivity;
 import me.federicomaggi.unifeed.ui.adapter.DepartmentAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DepartmentListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DepartmentListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class DepartmentListFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;

@@ -79,7 +79,6 @@ public class FeedListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_feed_list, container, false);
         mListView = (ListView) mRootView.findViewById(R.id.feed_list);
 
