@@ -39,7 +39,6 @@ public class Helpers {
     private static Context appContext;
     private static JSONObject alerts;
     private ArrayList<DepartmentItem> mDeparmentList;
-    private ArrayList<FeedItem> mFeedItemlist;
     private HashMap<String,ArrayList<FeedItem>> mFeedMap;
 
     // Communication and services handlers
@@ -82,7 +81,7 @@ public class Helpers {
          appContext = newContext;
     }
 
-    public void setProgressDialog(String theMessage) {
+    public void setProgressDialog(String theMessage, boolean cancelable) {
 
         Log.i(Helpers.getString(R.string.log_info), "Opening progress dialog");
 
@@ -95,6 +94,7 @@ public class Helpers {
             theMessage = getString(R.string.default_loading_message);
 
         mProgressDialog.setMessage(theMessage);
+        mProgressDialog.setCancelable(cancelable);
         mProgressDialog.show();
     }
 

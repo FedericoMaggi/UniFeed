@@ -22,6 +22,8 @@ public class FeedActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
+        Helpers.setAppContext(this);
+
         try {
             Intent intent = getIntent();
 

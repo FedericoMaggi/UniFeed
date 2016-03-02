@@ -3,12 +3,14 @@ package me.federicomaggi.unifeed.ui.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import me.federicomaggi.unifeed.R;
+import me.federicomaggi.unifeed.controller.Helpers;
 import me.federicomaggi.unifeed.model.FeedItem;
 
 /**
@@ -54,12 +56,15 @@ public class FeedViewerFragment extends Fragment{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mFeedTitle = getArguments().getString(FEED_TITLE_ARG);
             mFeedPubDate = getArguments().getString(FEED_PUBDATE_ARG);
             mFeedDescription = getArguments().getString(FEED_DESCRIPTION_ARG);
             mFeedLink = getArguments().getString(FEED_LINK_ARG);
+
+            Log.d(Helpers.getString(R.string.log_debug), mFeedPubDate);
         }
     }
 
@@ -67,7 +72,7 @@ public class FeedViewerFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View mRootView = inflater.inflate(R.layout.fragment_viewer, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_feed_viewer, container, false);
 
         TextView feedTitleTextView = (TextView) mRootView.findViewById(R.id.feed_title);
         TextView feedDateTextView = (TextView) mRootView.findViewById(R.id.feed_date);

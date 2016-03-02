@@ -110,6 +110,6 @@ public class DepartmentListFragment extends Fragment {
      * activity.
      */
     public interface OnFragmentInteractionListener {
-        public void onDepartmentFragmentInteraction(DepartmentItem departmentItem);
+        void onDepartmentFragmentInteraction(DepartmentItem departmentItem);
     }
 }

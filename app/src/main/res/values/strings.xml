@@ -31,8 +31,10 @@
     <string name="title_section2">Feed Unimi</string>
     <string name="title_section3">About</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Apri l\'hamburger menu</string>
+    <string name="navigation_drawer_close">Chiudi l\'hamburger menu</string>
 
     <string name="action_example">Example action</string>
+    <string name="feed_content_label">Contenuto:</string>
+
 </resources>

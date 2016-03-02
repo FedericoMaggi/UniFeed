@@ -79,7 +79,7 @@ public class RSSParser extends DefaultHandler{
                 break;
 
             case "pubdate":
-                currentFeedItem.setDate(stringBuilder.toString());
+                currentFeedItem.setDate(stringBuilder.toString().replaceAll("\\n\\r|\\n", ""));
                 break;
 
             case "description":
