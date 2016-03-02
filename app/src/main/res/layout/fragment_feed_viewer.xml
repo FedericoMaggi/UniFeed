@@ -1,0 +1,79 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.federicomaggi.unifeed.ui.fragment.FeedViewerFragment">
+
+    <TextView
+        android:id="@+id/feed_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/feed_item_title_text"
+        android:background="@color/palette_white_transparent"/>
+
+    <LinearLayout
+        android:id="@+id/feed_date_wrapper"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="@dimen/feed_date_wrapper_height"
+        android:layout_below="@id/feed_title">
+
+        <TextView
+            android:id="@+id/feed_date_atLabel"
+            android:layout_width="40dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_height="match_parent"
+            android:text="@string/feed_date_label"
+            android:textSize="@dimen/feed_date_size"/>
+
+        <TextView
+            android:id="@+id/feed_date"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="@dimen/feed_date_size"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/feed_link_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/feed_date_wrapper">
+
+        <TextView
+            android:id="@+id/feed_link_refLabel"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="@string/feed_link_label"/>
+
+        <TextView
+            android:id="@+id/feed_link"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/feed_content_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/feed_link_wrapper">
+
+        <TextView
+            android:id="@+id/feed_content_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/feed_content_label"/>
+
+        <TextView
+            android:id="@+id/feed_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</RelativeLayout>
